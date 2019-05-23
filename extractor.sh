@@ -49,6 +49,30 @@ PHONE()
 	nl -w2 -s ') ' <(echo "$PHONE")
 	echo "------------------------------"
 }
+PHONE-ANY()
+{
+	echo "Enter the country code:"
+	read cc
+	if [ ${#cc} -eq 2 ]
+	then
+    		PHONE=$(cat "$file" | grep -oP '\d{2}[\-\s]\d{10}' | sort -u )
+		count=$(cat "$file" | grep -oP '\d{2}[\-\s]\d{10}' | sort -u | wc -l)
+		echo "------------------------------"
+		echo " $count Phone numbers are found"
+		echo "------------------------------"
+		nl -w2 -s ') ' <(echo "$PHONE")
+		echo "------------------------------"
+	elif [ ${#cc} -eq 3 ]
+	then 
+	    	PHONE=$(cat "$file" | grep -oP '\d{3}[\-\s]\d{10}' | sort -u )
+		count=$(cat "$file" | grep -oP '\d{2}[\-\s]\d{10}' | sort -u | wc -l)
+		echo "------------------------------"
+		echo " $count Phone numbers are found"
+		echo "------------------------------"
+		nl -w2 -s ') ' <(echo "$PHONE")
+		echo "------------------------------"
+	fi 
+}
 URL()
 {
 	URL=$(cat "$file" | grep -oP '(https?):\/\/?[^\s\d$.?#].[^\s]*' | sort -u)
